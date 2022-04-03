@@ -50,7 +50,7 @@ DoxMinusNoDox <- function(Dox,NoDox){
 
 **XiMinusXa**
 
-For allelic analysis, this function subtracts the distribution pattern of enrichment over the active X (Xa) from the inactive X (Xi) chromosome. Therefore, this enables plotting of Xi-specific Polycomb enrichment 'internally normalized' within one sample, so is more robust to technical variability (eg. in ChIP efficiency) between samples than the non-allelic DoxMinusNoDox approach (see above). 
+For allelic analysis, this function subtracts the distribution pattern of enrichment over the active X (Xa) from the inactive X (Xi) chromosome. Thus this enables plotting of Xi-specific Polycomb enrichment 'internally normalized' within one sample, so is more robust to technical variability (eg. in ChIP efficiency) between samples than the non-allelic DoxMinusNoDox approach (see above). 
 
 In iXist-ChrX-Dom lines, genome1 = *Castaneous* = **Xa** and genome2 = *Domesticus*/129 = **Xi**. 
 
