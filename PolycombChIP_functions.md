@@ -19,7 +19,7 @@ Here is an example of this command being used:
 
 ```
  MyFile <- CentreColandNames(read_delim("~/PATH/TO/MyFile.sort.Norm.chrX.bedGraph.250KB.txt",
- "\t", escape_double = FALSE, col_names = FALSE, col_types = cols(X4 = col_skip(), X6 = col_skip()), trim_ws = TRUE))
+                            "\t", escape_double = FALSE, col_names = FALSE, col_types = cols(X4 = col_skip(), X6 = col_skip()), trim_ws = TRUE))
 ```
 
 **IPoverInput**
