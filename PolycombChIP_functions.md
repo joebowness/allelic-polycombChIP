@@ -124,7 +124,7 @@ shade.blacklist.regions <- function(input,blacklist,ylim){
 
 **calculateCorr**
 
-This function calculates the correlation coefficent (R) between the distribution patterns of two samples. It also takes a blacklsit parameter to discoutn blacklisted regions. 
+This function calculates the correlation coefficent (R) between the distribution patterns of two samples. It also takes a 'blacklist' parameter to discount blacklisted regions from the correlation calculation.
 
 ```{calculateCorr}
 calculateCorr <- function(table1,table2,blacklist){
