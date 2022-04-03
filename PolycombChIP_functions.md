@@ -14,7 +14,53 @@ CentreColandNames <- function(table){
 }
 
 ```
+
+
+**IPoverInput**
+
+This normalises IP files to an appropriate input to calculate enrichment for each window over the chromosome.
+
+```{IPoverInput}
+IPoverInput <- function(IP, input){
+  Enrichment <- as.numeric(IP[,5] / input[,5])
+  Enrichment[is.nan(Enrichment)] <- NA
+  IPoverinput_table <- cbind(IP[1:4], Enrichment)
+  return(IPoverinput_table)
+}
+```
+
+**DoxMinusNoDox**
+
+For non-allelic analysis, this function subtracts a NoDox sample from a Dox sample. This enables plots of the distribution of Xist-specific gain of Polycomb enrichment over the chromosome.
+
+```{DoxMinusNoDox}
+DoxMinusNoDox <- function(Dox,NoDox){
+  DoxMinusNoDox <- cbind(Dox[,1:4], Dox[,5] - NoDox[,5])
+  colnames(DoxMinusNoDox)[5] <- "DoxMinusNoDox"
+  return(DoxMinusNoDox)
+}
+
+```
+
+**XiMinusXa**
+
+For allelic analysis, this function subtracts the distribution pattern of enrichment over the active X (Xa) from the inactive X (Xi) chromosome. Therefore, this enables plotting of Xi-specific Polycomb enrichment 'internally normalized' within one sample, so is more robust to technical variability (eg. in ChIP efficiency) between samples than the non-allelic DoxMinusNoDox approach (see above). 
+
+In iXist-ChrX-Dom lines, genome1 = *Castaneous* = **Xa** and genome2 = *Domesticus*/129 = **Xi**. 
+
+```{XiMinusXa}
+XiMinusXa <- function(genome2,genome1){
+  XiMinusXa <- cbind(genome2[,1:4], genome2[,5] - genome1[,5])
+  colnames(XiMinusXa)[5] <- "XiMinusXa"
+  return(XiMinusXa)
+}
+
+```
+
 **poormappability.blacklist**
+
+This function defines windows with outlier signal in an non-allelic 'input' sample, which are often the result of poor mappability in repetitive regions of the genome. We suggest to define ‘poor mappability’ regions as windows with +/- 2.5 median absolute deviation (from visual inspection of plots), although this mad threshold is adjustable.
+
 
 ```{poormappability.blacklist}
 poormappability.blacklist <- function(input,madfactor){
@@ -31,6 +77,8 @@ poormappability.blacklist <- function(input,madfactor){
 ```
 
 **lowallelic.blacklist**
+
+This function defines windows for which there are not sufficient allelic reads (eg. poorly mappable, repetitive, or very few strain-specific SNPs) to confidently assess allele-specific enrichment. It takes as allelic input files (in iXist-ChrX-Dom lines, g1 = *Castaneous* and g2 = *Domesticus*/129), and marks windows ranking in the lowest X% of signal, where the threshold X is adjustable. We recommend 5% (from visual inspection of plots). 
 
 ```{lowallelic.blacklist}
 lowallelic.blacklist <- function(input_g1,input_g2,threshold){
@@ -54,6 +102,9 @@ lowallelic.blacklist <- function(input_g1,input_g2,threshold){
 
 **shade.blacklist.regions**
 
+This function overlays semi-transparent bars at coordinates of blacklisted regions over a line graph of ChIP enrichment over a chromosome. The first parameter 'input' is arbitrary - it is just to collect coordinates so can be any file of the same structure (same windows as rows) as the graph to overlay. The 'blacklist' parameter can be a 'low mappability' blacklsit (for non-allelic graphs), a 'low allelic' blacklist (for allelic graphs) or a combined blacklsit by both criteria. ylim should be fit to the y axis of the graph the blacklist is to be overlain on top of. Unfortunately it was tricky to extend shahed blacklists to negative 'y' values. If necessary, these can be extended manually in a figure editing software (eg. Abode Illustrator, Affinity Designer) after generating pdfs of the graphs. 
+
+
 ```{shade.blacklist.regions}
 shade.blacklist.regions <- function(input,blacklist,ylim){
   blacklist_binary <- input
@@ -71,33 +122,9 @@ shade.blacklist.regions <- function(input,blacklist,ylim){
   polygon(x3, y3, border=NA, col=rgb(240, 240, 240, max = 255, alpha = 180)) #to add shaded regions
 ```
 
-
-**IPoverInput**
-
-
-```{IPoverInput}
-IPoverInput <- function(IP, input){
-  Enrichment <- as.numeric(IP[,5] / input[,5])
-  Enrichment[is.nan(Enrichment)] <- NA
-  IPoverinput_table <- cbind(IP[1:4], Enrichment)
-  return(IPoverinput_table)
-}
-```
-
-
-**DoxMinusNoDox**
-
-
-```{DoxMinusNoDox}
-DoxMinusNoDox <- function(Dox,NoDox){
-  DoxMinusNoDox <- cbind(Dox[,1:4], Dox[,5] - NoDox[,5])
-  colnames(DoxMinusNoDox)[5] <- "DoxMinusNoDox"
-  return(DoxMinusNoDox)
-}
-
-```
-
 **calculateCorr**
+
+This function calculates the correlation coefficent (R) between the distribution patterns of two samples. It also takes a blacklsit parameter to discoutn blacklisted regions. 
 
 ```{calculateCorr}
 calculateCorr <- function(table1,table2,blacklist){
