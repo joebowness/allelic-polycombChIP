@@ -125,7 +125,8 @@ shade.blacklist.regions <- function(input,blacklist,ylim){
   x2 <- rep(x, each=2)[-1]
   x3 <- c(min(x2), x2, max(x2))
   y3 <- c(0, y2, 0)
-  polygon(x3, y3, border=NA, col=rgb(240, 240, 240, max = 255, alpha = 180)) #to add shaded regions
+  polygon(x3, y3, border=NA, col=rgb(240, 240, 240, max = 255, alpha = 180)) #to add the shaded regions
+  }
 ```
 
 **calculateCorr**
