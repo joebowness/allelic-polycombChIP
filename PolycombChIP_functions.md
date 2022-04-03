@@ -1,8 +1,8 @@
 ## Useful R functions for allelic Polycomb modification ChIP-seq data analysis
 **CentreColandNames**
 
-This function is designed to run directly on a nested read_delim() command. 
-The read_delim() loads a .txt file produced from runnning the custom Python script ExtractInfoFrombedGraph_AtBed.py (https://github.com/guifengwei) on a bedgraph of the ChIP library with a .bed file of windows of a given length (eg. 250kb) of Chromosome X. 
+This function is designed to run directly on a nested read_delim() command.
+The read_delim() loads a .txt file produced from runnning the custom Python script ExtractInfoFrombedGraph_AtBed.py (https://github.com/guifengwei) on a bedgraph of the ChIP library with a .bed file of windows of a given length (eg. 250kb) of Chromosome X.
 
 The function names columns and creates an additional column of the centre of the window (for plotting).
 
@@ -15,6 +15,12 @@ CentreColandNames <- function(table){
 
 ```
 
+Here is an example of this command being used:
+
+```
+ MyFile <- CentreColandNames(read_delim("~/PATH/TO/MyFile.sort.Norm.chrX.bedGraph.250KB.txt",
+ "\t", escape_double = FALSE, col_names = FALSE, col_types = cols(X4 = col_skip(), X6 = col_skip()), trim_ws = TRUE))
+```
 
 **IPoverInput**
 
