@@ -30,25 +30,6 @@ poormappability.blacklist <- function(input,madfactor){
 }
 ```
 
-**shade.blacklist.regions**
-
-```{shade.blacklist.regions}
-shade.blacklist.regions <- function(input,blacklist,ylim){
-  blacklist_binary <- input
-  blacklist_binary[which(
-    blacklist_binary$End %in% blacklist$End),]$Value <- 1
-  blacklist_binary[which(
-    blacklist_binary$End %notin% blacklist$End),]$Value <- 0
-  y <- (blacklist_binary$Value)*ylim
-  x <- (blacklist_binary$Start)/1000000
-  y2 <- rep(y, each=2)
-  y2 <- y2[-length(y2)]
-  x2 <- rep(x, each=2)[-1]
-  x3 <- c(min(x2), x2, max(x2))
-  y3 <- c(0, y2, 0)
-  polygon(x3, y3, border=NA, col=rgb(240, 240, 240, max = 255, alpha = 180)) #to add shaded regions
-```
-
 **lowallelic.blacklist**
 
 ```{lowallelic.blacklist}
@@ -70,6 +51,26 @@ lowallelic.blacklist <- function(input_g1,input_g2,threshold){
   return(blacklist)  
 }
 ```
+
+**shade.blacklist.regions**
+
+```{shade.blacklist.regions}
+shade.blacklist.regions <- function(input,blacklist,ylim){
+  blacklist_binary <- input
+  blacklist_binary[which(
+    blacklist_binary$End %in% blacklist$End),]$Value <- 1
+  blacklist_binary[which(
+    blacklist_binary$End %notin% blacklist$End),]$Value <- 0
+  y <- (blacklist_binary$Value)*ylim
+  x <- (blacklist_binary$Start)/1000000
+  y2 <- rep(y, each=2)
+  y2 <- y2[-length(y2)]
+  x2 <- rep(x, each=2)[-1]
+  x3 <- c(min(x2), x2, max(x2))
+  y3 <- c(0, y2, 0)
+  polygon(x3, y3, border=NA, col=rgb(240, 240, 240, max = 255, alpha = 180)) #to add shaded regions
+```
+
 
 **IPoverInput**
 
