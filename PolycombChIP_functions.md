@@ -1,8 +1,7 @@
 ## Useful R functions for allelic Polycomb modification ChIP-seq data analysis
 **CentreColandNames**
 
-This function is designed to run directly on a nested read_delim() command loading a .txt file. 
-This file is produced from runnning the custom Python script *ExtractInfoFrombedGraph_AtBed.py* (https://github.com/guifengwei) on a sample bedgraph with a .bed file of windows of a given length (eg. 250kb) of Chromosome X.
+This function is designed to run on a nested read_delim() command loading a .txt file produced from runnning the custom Python script *ExtractInfoFrombedGraph_AtBed.py* (https://github.com/guifengwei) on a sample bedgraph with a .bed file of windows of a given length (eg. 250kb) of Chromosome X.
 
 The function names columns and creates an additional column of the centre of the window (for plotting of line graphs).
 
@@ -24,7 +23,7 @@ Here is an example of this command being used:
 
 **IPoverInput**
 
-This normalises IP files to an appropriate input to calculate enrichment for each window over the chromosome.
+This normalises IP tables to an appropriate input to calculate enrichment for each window over the chromosome.
 
 ```{IPoverInput}
 IPoverInput <- function(IP, input){
@@ -37,7 +36,7 @@ IPoverInput <- function(IP, input){
 
 **DoxMinusNoDox**
 
-For non-allelic analysis, this function subtracts a NoDox sample from a Dox sample. This enables plots of the distribution of Xist-specific gain of Polycomb enrichment over the chromosome.
+For non-allelic analysis, this function subtracts a NoDox sample from a Dox sample. This enables plotting of the distribution of Xist-specific gain of Polycomb enrichment over the chromosome.
 
 ```{DoxMinusNoDox}
 DoxMinusNoDox <- function(Dox,NoDox){
@@ -65,7 +64,7 @@ XiMinusXa <- function(genome2,genome1){
 
 **poormappability.blacklist**
 
-This function defines windows with outlier signal in an non-allelic 'input' sample, which are often the result of poor mappability in repetitive regions of the genome. We suggest to define ‘poor mappability’ regions as windows with +/- 2.5 median absolute deviation (from visual inspection of plots), although this mad threshold is adjustable.
+This function defines windows with outlier signal in an non-allelic 'input' sample, which are often the result of poor mappability in repetitive regions of the genome. We suggest to define ‘poor mappability’ regions as windows with +/- 2.5 median absolute deviation (from visual inspection of plots), although this m.a.d. threshold is adjustable.
 
 
 ```{poormappability.blacklist}
@@ -108,7 +107,7 @@ lowallelic.blacklist <- function(input_g1,input_g2,threshold){
 
 **shade.blacklist.regions**
 
-This function overlays semi-transparent bars at coordinates of blacklisted regions over a line graph of ChIP enrichment over a chromosome. The first parameter 'input' is arbitrary - it is just to collect coordinates so can be any file of the same structure (same windows as rows) as the graph to overlay. The 'blacklist' parameter can be a 'low mappability' blacklsit (for non-allelic graphs), a 'low allelic' blacklist (for allelic graphs) or a combined blacklsit by both criteria. ylim should be fit to the y axis of the graph the blacklist is to be overlain on top of. Unfortunately it was tricky to extend shahed blacklists to negative 'y' values. If necessary, these can be extended manually in a figure editing software (eg. Abode Illustrator, Affinity Designer) after generating pdfs of the graphs. 
+This function overlays semi-transparent bars at coordinates of blacklisted regions over a line graph of ChIP enrichment over a chromosome. The first parameter 'input' is fairly arbitrary - it is used just to collect coordinates so can be any file of the same structure as the graph to overlay (windows as rows). The 'blacklist' parameter can be a 'low mappability' blacklsit (for non-allelic graphs), a 'low allelic' blacklist (for allelic graphs) or a combined blacklist by both criteria. ylim should be adjusted to the y axis of the graph the blacklist is to be overlain on. Unfortunately it was tricky to extend shahed blacklists to negative 'y' values. If necessary, these can be extended manually in a figure editing software (eg. Abode Illustrator, Affinity Designer) after generating pdfs of the graphs. 
 
 
 ```{shade.blacklist.regions}
