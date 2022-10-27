@@ -64,7 +64,7 @@ XiMinusXa <- function(genome2,genome1){
 
 **poormappability.blacklist**
 
-This function defines windows with outlier signal in an non-allelic 'input' sample, which are often the result of poor mappability in repetitive regions of the genome. We suggest to define ‘poor mappability’ regions as windows with +/- 2.5 median absolute deviation (from visual inspection of plots), although this m.a.d. threshold is adjustable.
+This function defines windows with outlier signal in a non-allelic 'input' sample, which are often the result of poor mappability in repetitive regions of the genome. We suggest to define ‘poor mappability’ regions as windows with +/- 2.5 median absolute deviation (from visual inspection of plots), although this m.a.d. threshold is adjustable.
 
 
 ```{poormappability.blacklist}
@@ -83,7 +83,7 @@ poormappability.blacklist <- function(input,madfactor){
 
 **lowallelic.blacklist**
 
-This function defines windows for which there are not sufficient allelic reads (eg. poorly mappable, repetitive, or very few strain-specific SNPs) to confidently assess allele-specific enrichment. It takes as allelic input files (in iXist-ChrX-Dom lines, g1 = *Castaneous* and g2 = *Domesticus*/129), and marks windows ranking in the lowest X% of signal, where the threshold X is adjustable. We recommend 5% (from visual inspection of plots). 
+This function defines windows for which there are not sufficient allelic reads (eg. poorly mappable, repetitive, or very few strain-specific SNPs) to confidently assess allele-specific enrichment. It takes allelic input files (in iXist-ChrX-Dom lines, g1 = *Castaneous* and g2 = *Domesticus*/129), and marks windows ranking in the lowest X% of signal, where the threshold X is adjustable. We recommend 5% (from visual inspection of plots). 
 
 ```{lowallelic.blacklist}
 lowallelic.blacklist <- function(input_g1,input_g2,threshold){
@@ -107,7 +107,7 @@ lowallelic.blacklist <- function(input_g1,input_g2,threshold){
 
 **shade.blacklist.regions**
 
-This function overlays semi-transparent bars at coordinates of blacklisted regions over a line graph of ChIP enrichment over a chromosome. The first parameter 'input' is fairly arbitrary - it is used just to collect coordinates so can be any file of the same structure as the graph to overlay (windows as rows). The 'blacklist' parameter can be a 'low mappability' blacklsit (for non-allelic graphs), a 'low allelic' blacklist (for allelic graphs) or a combined blacklist by both criteria. ylim should be adjusted to the y axis of the graph the blacklist is to be overlain on. Unfortunately it was tricky to extend shahed blacklists to negative 'y' values. If necessary, these can be extended manually in a figure editing software (eg. Abode Illustrator, Affinity Designer) after generating pdfs of the graphs. 
+This function overlays semi-transparent bars at coordinates of blacklisted regions over a line graph of ChIP enrichment over a chromosome. The first parameter 'input' is fairly arbitrary - it is used just to collect coordinates so can be any file of the same structure as the graph to overlay (windows as rows). The 'blacklist' parameter can be a 'low mappability' blacklist (for non-allelic graphs), a 'low allelic' blacklist (for allelic graphs) or a combined blacklist by both criteria. ylim should be adjusted to the y axis of the graph the blacklist is to be overlain on. Unfortunately it was tricky to extend shahed blacklists to negative 'y' values. If necessary, these can be extended manually in a figure editing software (eg. Adobe Illustrator, Affinity Designer) after generating pdfs of the graphs. 
 
 
 ```{shade.blacklist.regions}
